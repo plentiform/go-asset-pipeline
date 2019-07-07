@@ -86,7 +86,10 @@ func finalize(config Config, buf map[FileType]*bytes.Buffer) (map[FileType]*Comp
 	ret := make(map[FileType]*CompileResult, len(buf))
 
 	// Delete old assets
-	os.RemoveAll(config.OutputDir)
+	oldFiles, _ := filepath.Glob(config.OutputDir + "/**/*.min.*")
+	for _, oldFile := range oldFiles {
+		os.RemoveAll(oldFile)
+	}
 
 	for key, b := range buf {
 		if b.Len() > 0 {

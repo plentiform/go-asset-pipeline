@@ -43,6 +43,7 @@ func getBytes(config Config, minifier *minify.M) (map[FileType]*bytes.Buffer, er
 	buf := make(map[FileType]*bytes.Buffer)
 
 	for _, pattern := range config.Files {
+		// Get all files matching wildcard
 		files, _ := filepath.Glob(pattern)
 		for _, file := range files {
 			if file, err := os.Open(file); err == nil {
@@ -84,6 +85,9 @@ type CompileResult struct {
 func finalize(config Config, buf map[FileType]*bytes.Buffer) (map[FileType]*CompileResult, error) {
 	ret := make(map[FileType]*CompileResult, len(buf))
 
+	// Delete old assets
+	os.RemoveAll(config.OutputDir)
+
 	for key, b := range buf {
 		if b.Len() > 0 {
 			bytes := b.Bytes()
@@ -100,7 +104,7 @@ func finalize(config Config, buf map[FileType]*bytes.Buffer) (map[FileType]*Comp
 				}
 
 				dir := filepath.Join(config.OutputDir, string(key))
-				os.MkdirAll(dir, 0755)
+				os.MkdirAll(dir, 0777)
 
 				destFile := filepath.Join(dir, "app-"+ret[key].Hash+ext)
 				ioutil.WriteFile(destFile, bytes, 0644)

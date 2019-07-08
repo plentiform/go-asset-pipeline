@@ -24,14 +24,14 @@ import precompiler "github.com/plentiform/go-asset-pipeline"
 func main() {
 	precompileResult, _ := precompiler.Compile(precompiler.Config{
 		Files: []string{
-			"assets/css/bootstrap.default.css",
 			"assets/css/font-awesome.css",
-			"assets/css/application.css",
+			"assets/css/bootstrap.css",
+			"assets/css/app.css",
+			"assets/css/components/*",
 			"assets/js/jquery.js",
-			"assets/js/popper.js",
 			"assets/js/bootstrap.js",
-			"assets/js/moment.js",
-			"assets/js/application.js",
+			"assets/js/app.js",
+			"assets/js/tasks/*",
 		},
 		Minify:    true,
 		OutputDir: "assets/",

@@ -2,6 +2,8 @@
 
 This is a CSS & JS asset pipeline written in Golang.
 
+![Neovim Gopher](https://raw.githubusercontent.com/plentiform/go-asset-pipeline/master/gopher.png)
+
 ## Why?
 
 In Rails you have an [asset pipeline](https://guides.rubyonrails.org/asset_pipeline.html) where all Javascript and Stylesheets are minified so they load quicker, uniquely identified for cache-friendliness, and aggregated into a single file to lower the number of requests required to view a website.
